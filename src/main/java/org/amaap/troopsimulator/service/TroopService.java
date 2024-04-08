@@ -18,7 +18,7 @@ public class TroopService {
         this.troopRepository = troopRepository;
     }
 
-    public void create(int troopCount, String troopType) throws InvalidTroopCountException, InvalidTroopTypeException {
+    public void create(int troopCount, String troopType) throws InvalidTroopCountException {
         if (troopCount <= 0) throw new InvalidTroopCountException("Troop count can not be:" + troopCount);
         troopRepository.insert(troopCount, troopType);
     }

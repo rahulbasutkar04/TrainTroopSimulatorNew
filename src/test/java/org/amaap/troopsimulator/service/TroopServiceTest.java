@@ -3,6 +3,7 @@ package org.amaap.troopsimulator.service;
 import org.amaap.troopsimulator.domain.model.Archer;
 import org.amaap.troopsimulator.domain.model.Barbarian;
 import org.amaap.troopsimulator.repository.impl.InMemoryRepository;
+import org.amaap.troopsimulator.repository.impl.database.implementation.FakeDatabase;
 import org.amaap.troopsimulator.service.exception.InvalidTroopCountException;
 import org.amaap.troopsimulator.service.exception.InvalidTroopTypeException;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +18,7 @@ class TroopServiceTest {
     private TroopService troopService;
     @BeforeEach
     void setup() {
-      troopService = new TroopService(new InMemoryRepository());
+      troopService = new TroopService(new InMemoryRepository(new FakeDatabase()));
     }
 
     @Test
@@ -30,7 +31,7 @@ class TroopServiceTest {
         });
     }
     @Test
-    void shouldBeAbleToCrateTheNumberOfBarbarians() throws InvalidTroopCountException, InvalidTroopTypeException {
+    void shouldBeAbleToCrateTheNumberOfBarbarians() throws InvalidTroopCountException {
         // arrange
         int troopCount = 10;
         String troopType = "Barbarian";
@@ -45,7 +46,7 @@ class TroopServiceTest {
     }
 
     @Test
-    void shouldBeAbleToCrateTheNumberOfArchers() throws InvalidTroopCountException, InvalidTroopTypeException {
+    void shouldBeAbleToCrateTheNumberOfArchers() throws InvalidTroopCountException {
         // arrange
         int troopCount = 10;
         String troopType = "Archer";

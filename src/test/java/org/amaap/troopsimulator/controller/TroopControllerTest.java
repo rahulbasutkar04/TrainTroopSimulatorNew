@@ -2,8 +2,8 @@ package org.amaap.troopsimulator.controller;
 
 import org.amaap.troopsimulator.controller.dto.HttpStatus;
 import org.amaap.troopsimulator.controller.dto.Response;
-import org.amaap.troopsimulator.repository.TroopRepository;
 import org.amaap.troopsimulator.repository.impl.InMemoryRepository;
+import org.amaap.troopsimulator.repository.impl.database.implementation.FakeDatabase;
 import org.amaap.troopsimulator.service.TroopService;
 import org.amaap.troopsimulator.service.exception.InvalidTroopCountException;
 import org.amaap.troopsimulator.service.exception.InvalidTroopTypeException;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TroopControllerTest {
-    TroopController troopController = new TroopController(new TroopService(new InMemoryRepository()));
+    TroopController troopController = new TroopController(new TroopService(new InMemoryRepository(new FakeDatabase())));
 
 
     @Test

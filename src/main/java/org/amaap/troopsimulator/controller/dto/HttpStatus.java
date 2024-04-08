@@ -1,4 +1,4 @@
-package org.amaap.troopsimulator.controller.controller.dto;
+package org.amaap.troopsimulator.controller.dto;
 
 public enum HttpStatus {
     BADREQUEST,OK

@@ -1,14 +1,9 @@
 package org.amaap.troopsimulator.service;
 
-import org.amaap.troopsimulator.domain.Troop;
-import org.amaap.troopsimulator.domain.model.Archer;
-import org.amaap.troopsimulator.domain.model.Barbarian;
 import org.amaap.troopsimulator.repository.TroopRepository;
 import org.amaap.troopsimulator.service.exception.InvalidTroopCountException;
-import org.amaap.troopsimulator.service.exception.InvalidTroopTypeException;
 
 import java.util.List;
-
 
 public class TroopService {
 
@@ -23,12 +18,12 @@ public class TroopService {
         troopRepository.insert(troopCount, troopType);
     }
 
-    public List<Barbarian> getBarbarians() {
+    public List<Object> getBarbarians() {
         return troopRepository.getBarbarians();
     }
 
 
-    public List<Archer> getArchers() {
+    public List<Object> getArchers() {
         return troopRepository.getArchers();
     }
 }

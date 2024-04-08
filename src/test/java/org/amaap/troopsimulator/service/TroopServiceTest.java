@@ -38,7 +38,7 @@ class TroopServiceTest {
 
         // act
         troopService.create(troopCount, troopType);
-        List<Barbarian> actual = troopService.getBarbarians();
+        List<Object> actual = troopService.getBarbarians();
 
         // assert
 
@@ -46,14 +46,14 @@ class TroopServiceTest {
     }
 
     @Test
-    void shouldBeAbleToCrateTheNumberOfArchers() throws InvalidTroopCountException {
+    void shouldBeAbleToCrateTheNumberOfArchers() throws InvalidTroopCountException, InvalidTroopTypeException {
         // arrange
         int troopCount = 10;
         String troopType = "Archer";
 
         // act
         troopService.create(troopCount, troopType);
-        List<Archer> actual = troopService.getArchers();
+        List<Object> actual = troopService.getArchers();
 
         // assert
 

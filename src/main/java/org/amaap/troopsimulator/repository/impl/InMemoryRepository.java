@@ -7,14 +7,15 @@ import java.util.List;
 
 public class InMemoryRepository implements TroopRepository {
 
-    private  final InMemoryDatabase inMemoryDatabase;
-    public InMemoryRepository(InMemoryDatabase inMemoryDatabase){
-       this.inMemoryDatabase=inMemoryDatabase;
+    private final InMemoryDatabase inMemoryDatabase;
+
+    public InMemoryRepository(InMemoryDatabase inMemoryDatabase) {
+        this.inMemoryDatabase = inMemoryDatabase;
     }
 
     @Override
     public void insert(int troopCount, String troopType) {
-        inMemoryDatabase.insertIntoTroopTable(troopCount,troopType);
+        inMemoryDatabase.insertIntoTroopTable(troopCount, troopType);
     }
 
 
@@ -25,6 +26,6 @@ public class InMemoryRepository implements TroopRepository {
 
     @Override
     public List<Object> getArchers() {
-        return  inMemoryDatabase.getTroopers();
+        return inMemoryDatabase.getTroopers();
     }
 }

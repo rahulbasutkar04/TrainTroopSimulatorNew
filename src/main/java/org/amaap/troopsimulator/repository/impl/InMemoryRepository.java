@@ -2,6 +2,7 @@ package org.amaap.troopsimulator.repository.impl;
 
 import org.amaap.troopsimulator.repository.TroopRepository;
 import org.amaap.troopsimulator.repository.impl.database.InMemoryDatabase;
+import org.amaap.troopsimulator.service.exception.InvalidTroopTypeException;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class InMemoryRepository implements TroopRepository {
     }
 
     @Override
-    public void insert(int troopCount, String troopType) {
+    public void insert(int troopCount, String troopType) throws InvalidTroopTypeException {
         inMemoryDatabase.insertIntoTroopTable(troopCount, troopType);
     }
 
@@ -26,6 +27,11 @@ public class InMemoryRepository implements TroopRepository {
 
     @Override
     public List<Object> getArchers() {
+        return inMemoryDatabase.getTroopers();
+    }
+
+    @Override
+    public List<Object> getTroopers() {
         return inMemoryDatabase.getTroopers();
     }
 }

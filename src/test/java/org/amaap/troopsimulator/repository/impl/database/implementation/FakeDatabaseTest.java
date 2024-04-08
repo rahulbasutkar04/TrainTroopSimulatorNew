@@ -2,16 +2,19 @@ package org.amaap.troopsimulator.repository.impl.database.implementation;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.amaap.troopsimulator.service.exception.InvalidTroopTypeException;
 import org.junit.jupiter.api.Test;
 import org.amaap.troopsimulator.domain.model.Archer;
 import org.amaap.troopsimulator.domain.model.Barbarian;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FakeDatabaseTest {
     FakeDatabase database = new FakeDatabase();
     @Test
-    void shouldBeAbleToInsertBarbariansIntoDatabase() {
+    void shouldBeAbleToInsertBarbariansIntoDatabase() throws InvalidTroopTypeException {
         // arrange
         int troopCount = 10;
         String troopType = "Barbarian";
@@ -25,7 +28,7 @@ class FakeDatabaseTest {
     }
 
     @Test
-    void shouldBeAbleToInsertArchersIntoDatabase() {
+    void shouldBeAbleToInsertArchersIntoDatabase() throws InvalidTroopTypeException {
         // arrange
         int troopCount = 10;
         String troopType = "Archer";
@@ -39,7 +42,7 @@ class FakeDatabaseTest {
     }
 
     @Test
-    void shouldContainOnlyBarbariansInDatabase() {
+    void shouldContainOnlyBarbariansInDatabase() throws InvalidTroopTypeException {
         // arrange
         int troopCount = 5;
         String troopType = "Barbarian";
@@ -54,7 +57,7 @@ class FakeDatabaseTest {
     }
 
     @Test
-    void shouldContainOnlyArchersInDatabase() {
+    void shouldContainOnlyArchersInDatabase() throws InvalidTroopTypeException {
         // arrange
         int archerCount = 5;
         String archerType = "Archer";
@@ -75,8 +78,36 @@ class FakeDatabaseTest {
         String invalidTroopType = "InvalidTroopType";
 
         // act & assert
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(InvalidTroopTypeException.class, () -> {
             database.insertIntoTroopTable(troopCount, invalidTroopType);
         });
+    }
+    @Test
+    void shouldBeAbleToGetTroopers() throws InvalidTroopTypeException {
+        // arrange
+        FakeDatabase database = new FakeDatabase();
+        int barbarianCount = 5;
+        int archerCount = 5;
+        String barbarianType = "Barbarian";
+        String archerType = "Archer";
+
+        // act
+        database.insertIntoTroopTable(barbarianCount, barbarianType);
+        database.insertIntoTroopTable(archerCount, archerType);
+        List<Object> troopers = database.getTroopers();
+
+        // assert
+        assertEquals(10, troopers.size());
+        int barbarianCountInTroopers = 0;
+        int archerCountInTroopers = 0;
+        for (Object trooper : troopers) {
+            if (trooper instanceof Barbarian) {
+                barbarianCountInTroopers++;
+            } else if (trooper instanceof Archer) {
+                archerCountInTroopers++;
+            }
+        }
+        assertEquals(barbarianCount, barbarianCountInTroopers);
+        assertEquals(archerCount, archerCountInTroopers);
     }
 }

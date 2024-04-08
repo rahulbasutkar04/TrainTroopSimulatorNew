@@ -31,7 +31,7 @@ class TroopServiceTest {
         });
     }
     @Test
-    void shouldBeAbleToCrateTheNumberOfBarbarians() throws InvalidTroopCountException {
+    void shouldBeAbleToCrateTheNumberOfBarbarians() throws InvalidTroopCountException, InvalidTroopTypeException {
         // arrange
         int troopCount = 10;
         String troopType = "Barbarian";

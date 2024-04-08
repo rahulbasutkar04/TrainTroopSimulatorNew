@@ -12,7 +12,9 @@ import org.amaap.troopsimulator.service.exception.InvalidTroopTypeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayDeque;
 import java.util.List;
+import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -43,5 +45,17 @@ public class BarrackControllerTest {
 
         // assert
         assertEquals(expected, actual);
+    }
+    @Test
+    void shouldBeAbleToTakeFirstTenInstancesWhileTrainingTroopsInBarrack(){
+        // arrange
+        List<Object> troopers = troopService.getTroopers();
+        Queue<Object> waitingTroopers = new ArrayDeque<>(troopers);
+        Response expected = new Response(HttpStatus.OK);
+        // act
+        Response actual = barrackController.train(waitingTroopers);
+
+        // assert
+        assertEquals(expected,actual);
     }
 }

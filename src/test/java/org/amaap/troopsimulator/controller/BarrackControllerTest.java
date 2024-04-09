@@ -3,6 +3,7 @@ package org.amaap.troopsimulator.controller;
 import org.amaap.troopsimulator.controller.dto.HttpStatus;
 import org.amaap.troopsimulator.controller.dto.Response;
 import org.amaap.troopsimulator.repository.BarrackRepository;
+import org.amaap.troopsimulator.repository.impl.InMemoryBarrackRepository;
 import org.amaap.troopsimulator.repository.impl.InMemoryTrooperRepository;
 import org.amaap.troopsimulator.repository.impl.database.implementation.FakeDatabase;
 import org.amaap.troopsimulator.service.BarrackService;
@@ -27,17 +28,19 @@ public class BarrackControllerTest {
     @BeforeEach
     void setup() {
         troopService = new TroopService(new InMemoryTrooperRepository(new FakeDatabase()));
+        barrackRepository = new InMemoryBarrackRepository(); // Initialize barrackRepository
         barrackService = new BarrackService(troopService, barrackRepository);
-        barrackController = new BarrackController(troopService,barrackService);
+        barrackController = new BarrackController(troopService, barrackService);
     }
 
     @Test
     void shouldBeAbleToReturnOkResponseWhenTroopersSentToBarrack() throws InvalidTroopCountException, InvalidTroopTypeException {
         // arrange
-        List<Object> troopers = troopService.getTroopers();
+
         int troopCount = 10;
         String troopType = "Barbarian";
         troopService.create(troopCount,troopType);
+        List<Object> troopers = troopService.getTroopers();
         Response expected = new Response(HttpStatus.OK);
 
         // act

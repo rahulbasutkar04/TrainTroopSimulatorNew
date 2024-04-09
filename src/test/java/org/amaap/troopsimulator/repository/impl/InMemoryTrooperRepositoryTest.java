@@ -11,11 +11,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class InMemoryRepositoryTest {
+class InMemoryTrooperRepositoryTest {
     @Test
     void shouldBeAbleToInsertBarbariansIntoDatabase() throws InvalidTroopTypeException {
         // arrange
-        InMemoryRepository repository = new InMemoryRepository(new FakeDatabase());
+        InMemoryTrooperRepository repository = new InMemoryTrooperRepository(new FakeDatabase());
         int troopCount = 10;
         String troopType = "Barbarian";
 
@@ -30,7 +30,7 @@ class InMemoryRepositoryTest {
     @Test
     void shouldBeAbleToInsertArchersIntoDatabase() throws InvalidTroopTypeException {
         // arrange
-        InMemoryRepository repository = new InMemoryRepository(new FakeDatabase());
+        InMemoryTrooperRepository repository = new InMemoryTrooperRepository(new FakeDatabase());
         int troopCount = 10;
         String troopType = "Archer";
 
@@ -45,7 +45,7 @@ class InMemoryRepositoryTest {
     @Test
     void shouldThrowExceptionForInvalidTroopType() {
         // arrange
-        InMemoryRepository repository = new InMemoryRepository(new FakeDatabase());
+        InMemoryTrooperRepository repository = new InMemoryTrooperRepository(new FakeDatabase());
         int troopCount = 10;
         String invalidTroopType = "InvalidTroopType";
 
@@ -58,7 +58,7 @@ class InMemoryRepositoryTest {
     void shouldBeAbleToGetTroopers() throws InvalidTroopTypeException {
         // arrange
         FakeDatabase database = new FakeDatabase();
-        InMemoryRepository repository = new InMemoryRepository(database);
+        InMemoryTrooperRepository repository = new InMemoryTrooperRepository(database);
         int barbarianCount = 5;
         int archerCount = 5;
         String barbarianType = "Barbarian";

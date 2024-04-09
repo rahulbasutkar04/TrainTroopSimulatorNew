@@ -1,14 +1,35 @@
 package org.amaap.troopsimulator.service;
 
+import org.amaap.troopsimulator.repository.BarrackRepository;
+import org.amaap.troopsimulator.repository.impl.InMemoryBarrackRepository;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 
 public class BarrackService {
-    public void addTrooper(List<Object> troopers) {
-        // Todo: Need to Implement the service to addTrooper to barrack
+    private BarrackRepository barrackRepository;
+    private List<Object> trooperQueueInBarrack = new ArrayList<>();
+    private TroopService troopService;
+
+    public BarrackService(TroopService troopService, BarrackRepository barrackRepository) {
+        this.barrackRepository = barrackRepository;
+        this.troopService = troopService;
     }
 
-    public void train(Queue<Object> waitingTroopers) {
-        //Todo : Need to implement the train troopers service
+    public List<Object> getTrooperQueueInBarrack() {
+        return trooperQueueInBarrack;
     }
+
+    public void addTrooperToBarrack(List<Object> troopers) {
+        barrackRepository.addTrooperToBarrack(troopers);
+
+    }
+
+    public void train() {
+        // convert list to queue and clear the list then will get all the troops in the queue, and
+        // then we are passing the troops
+        // batch and adding that data to repo and removing from queue till it gts empty
+
+    }
+
 }

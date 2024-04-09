@@ -1,8 +1,6 @@
 package org.amaap.troopsimulator.service;
 
-import org.amaap.troopsimulator.domain.model.Archer;
-import org.amaap.troopsimulator.domain.model.Barbarian;
-import org.amaap.troopsimulator.repository.impl.InMemoryRepository;
+import org.amaap.troopsimulator.repository.impl.InMemoryTrooperRepository;
 import org.amaap.troopsimulator.repository.impl.database.implementation.FakeDatabase;
 import org.amaap.troopsimulator.service.exception.InvalidTroopCountException;
 import org.amaap.troopsimulator.service.exception.InvalidTroopTypeException;
@@ -18,7 +16,7 @@ class TroopServiceTest {
     private TroopService troopService;
     @BeforeEach
     void setup() {
-      troopService = new TroopService(new InMemoryRepository(new FakeDatabase()));
+      troopService = new TroopService(new InMemoryTrooperRepository(new FakeDatabase()));
     }
 
     @Test

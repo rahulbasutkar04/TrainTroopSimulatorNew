@@ -2,8 +2,8 @@ package org.amaap.troopsimulator.controller;
 
 import org.amaap.troopsimulator.controller.dto.HttpStatus;
 import org.amaap.troopsimulator.controller.dto.Response;
-import org.amaap.troopsimulator.domain.model.Barbarian;
-import org.amaap.troopsimulator.repository.impl.InMemoryRepository;
+import org.amaap.troopsimulator.repository.BarrackRepository;
+import org.amaap.troopsimulator.repository.impl.InMemoryTrooperRepository;
 import org.amaap.troopsimulator.repository.impl.database.implementation.FakeDatabase;
 import org.amaap.troopsimulator.service.BarrackService;
 import org.amaap.troopsimulator.service.TroopService;
@@ -22,27 +22,26 @@ public class BarrackControllerTest {
     private BarrackService barrackService;
     private BarrackController barrackController;
     private TroopService troopService;
-
+    private BarrackRepository barrackRepository;
 
     @BeforeEach
     void setup() {
-        troopService = new TroopService(new InMemoryRepository(new FakeDatabase()));
-        barrackService = new BarrackService();
+        troopService = new TroopService(new InMemoryTrooperRepository(new FakeDatabase()));
+        barrackService = new BarrackService(troopService, barrackRepository);
         barrackController = new BarrackController(troopService,barrackService);
     }
 
     @Test
     void shouldBeAbleToReturnOkResponseWhenTroopersSentToBarrack() throws InvalidTroopCountException, InvalidTroopTypeException {
         // arrange
+        List<Object> troopers = troopService.getTroopers();
         int troopCount = 10;
         String troopType = "Barbarian";
         troopService.create(troopCount,troopType);
         Response expected = new Response(HttpStatus.OK);
 
         // act
-        List<Object> troopers = troopService.getTroopers();
-        Response actual = barrackController.addTrooperToBarrack(troopers);
-
+        Response actual = barrackController.addTrooperAndTrain(troopers);
         // assert
         assertEquals(expected, actual);
     }
@@ -50,10 +49,12 @@ public class BarrackControllerTest {
     void shouldBeAbleToTakeFirstTenInstancesWhileTrainingTroopsInBarrack(){
         // arrange
         List<Object> troopers = troopService.getTroopers();
+
         Queue<Object> waitingTroopers = new ArrayDeque<>(troopers);
         Response expected = new Response(HttpStatus.OK);
+
         // act
-        Response actual = barrackController.train(waitingTroopers);
+        Response actual = barrackController.addTrooperAndTrain(troopers);
 
         // assert
         assertEquals(expected,actual);

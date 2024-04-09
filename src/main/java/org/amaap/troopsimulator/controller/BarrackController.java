@@ -6,7 +6,6 @@ import org.amaap.troopsimulator.service.BarrackService;
 import org.amaap.troopsimulator.service.TroopService;
 
 import java.util.List;
-import java.util.Queue;
 
 public class BarrackController {
     private TroopService troopService;
@@ -17,14 +16,9 @@ public class BarrackController {
         this.barrackService = barrackService;
     }
 
-    public Response addTrooperToBarrack(List<Object> troopers) {
-        barrackService.addTrooper(troopers);
-        return new Response(HttpStatus.OK);
-
-    }
-
-    public Response train(Queue<Object> waitingTroopers) {
-        barrackService.train(waitingTroopers);
+    public Response addTrooperAndTrain(List<Object> troopers) {
+        barrackService.addTrooperToBarrack(troopers);
+        barrackService.train();
         return new Response(HttpStatus.OK);
     }
 }

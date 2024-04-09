@@ -6,11 +6,11 @@ import org.amaap.troopsimulator.service.exception.InvalidTroopTypeException;
 
 import java.util.List;
 
-public class InMemoryRepository implements TroopRepository {
+public class InMemoryTrooperRepository implements TroopRepository {
 
     private final InMemoryDatabase inMemoryDatabase;
 
-    public InMemoryRepository(InMemoryDatabase inMemoryDatabase) {
+    public InMemoryTrooperRepository(InMemoryDatabase inMemoryDatabase) {
         this.inMemoryDatabase = inMemoryDatabase;
     }
 

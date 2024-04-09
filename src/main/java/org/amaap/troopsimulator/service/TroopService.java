@@ -30,4 +30,5 @@ public class TroopService {
     public List<Object> getTroopers(){
         return troopRepository.getTroopers();
     }
+
 }

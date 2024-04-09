@@ -12,4 +12,8 @@ public class InMemoryBarrackRepository implements BarrackRepository {
         troopersWaitList.addAll(troopers);
 
     }
+    @Override
+    public List<Object> getTrooperQueueFromBarrack() {
+        return  troopersWaitList;
+    }
 }

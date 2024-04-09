@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,7 +23,7 @@ class BarrackServiceTest {
     void setup() {
         BarrackRepository barrackRepository = new InMemoryBarrackRepository();
         troopService = new TroopService(new InMemoryTrooperRepository(new FakeDatabase()));
-        barrackService = new BarrackService(troopService,barrackRepository);
+        barrackService = new BarrackService(troopService, barrackRepository);
     }
 
     @Test
@@ -35,10 +36,27 @@ class BarrackServiceTest {
         // act
         barrackService.addTrooperToBarrack(troopService.getTroopers());
 
-        List<Object> actual = barrackService.getTrooperQueueInBarrack();
+        List<Object> actual = barrackService.getTrooperQueueFromBarrack();
 
         // assert
         assertEquals(troopService.getTroopers().size(), actual.size());
+    }
+
+    @Test
+    void shouldTrainTroopersAndAddToTrainedTroopsQueue() throws InvalidTroopCountException, InvalidTroopTypeException {
+        // arrange
+        int numTroopers = 20;
+        String troopType = "Archer";
+        troopService = new TroopService(new InMemoryTrooperRepository(new FakeDatabase()));
+        troopService.create(numTroopers, troopType);
+        barrackService.addTrooperToBarrack(troopService.getTroopers());
+
+        // act
+        barrackService.train();
+        Queue<Object> trainedTroops = barrackService.getTrainedTroops();
+
+        // assert
+        assertEquals(numTroopers, trainedTroops.size());
     }
 
 }
